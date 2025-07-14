@@ -62,6 +62,7 @@ def sanitize_mermaid_code(raw_mermaid: str) -> str:
     with_newlines = raw_mermaid.replace("\\n", "\n")
     return html.unescape(with_newlines)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     parsed_output = ""
@@ -89,7 +90,7 @@ def index():
                 )
 
                 raw_output = response.choices[0].message.content
-                #print("\n🔵 Raw LLM Output:\n", raw_output)
+                #print("\n Raw LLM Output:\n", raw_output)
 
                 cleaned_output = clean_json_string(raw_output)
                 json_output = json.loads(cleaned_output)
@@ -125,10 +126,10 @@ def index():
                     pdf_path = temp_pdf.name
 
             except json.JSONDecodeError as json_err:
-                print("\n🔴 JSON Decode Error:\n", json_err)
+                print("\n JSON Decode Error:\n", json_err)
                 parsed_output = f"JSON decode error. Raw output:\n{raw_output}"
             except Exception as e:
-                print("\n🔴 General Error:\n", e)
+                print("\n General Error:\n", e)
                 parsed_output = f"Error: {str(e)}"
 
 
